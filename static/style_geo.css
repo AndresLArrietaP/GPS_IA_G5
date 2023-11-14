@@ -10,11 +10,9 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: white;
+    display: grid;
+    place-items: center;
+    background: #111;
 }
 
 .banner {
@@ -30,10 +28,14 @@ body {
     box-shadow: inset 5px 5px 5px rgba(247, 191, 190, 0.2),
         inset -5px -5px 15px rgba(255, 255, 255, 0.1),
         5px 5px 15px rgba(0, 0, 0, 0.3),
-        -5px 0.5px 15px rgba(247, 192, 198, 0.2);
+        -5px 0.5px 15px rgba(247, 192, 190, 0.2);
 }
 
 h1 {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%,-50%);
     padding: 0 30px;
     font-size: 3em;
     color: #fff;
@@ -53,6 +55,7 @@ h1 {
 
 .search-btn {
     color: #fff;
+    float: right;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -60,13 +63,14 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px; /* Añade un margen izquierdo para separar del campo de búsqueda */
+    /*margin-left: 10px; */
 }
 
 .search-txt {
     border: none;
     background: none;
     outline: none;
+    float: left;
     padding: 0;
     color: white;
     font-size: 16px;

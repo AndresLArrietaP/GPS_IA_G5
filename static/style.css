@@ -11,23 +11,31 @@ body {
     justify-content: center; /* Centra horizontalmente */
     align-items: center; /* Centra verticalmente */
     min-height: 100vh;
-    background: #111;
+    background:#111;
 }
 
 h1 {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0;
+    padding: 0 30px;
     font-size: 3em;
     color: #fff;
 }
 
 .container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin: 20px 0;
+    padding: 40px 0;
+    flex-wrap: wrap;
 }
 
-.box {
+.container .box {
+    position: relative;
     width: 320px;
     height: 400px;
     color: #fff;
@@ -35,7 +43,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 20px 30px;
     transition: 0.5s;
 }
 
@@ -109,10 +117,11 @@ container .box::after {
 }
 
 .container .box .content a {
-    display: inline-block;
+    display: 1.1em;
     font-size: 1.1em;
     padding: 10px 12px;
     margin: 0 10px;
+    width: 10%;
     text-decoration: none;
     color: #111;
     background: #00ccff;

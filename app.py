@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, Response, redirect
+from flask import Flask, render_template, request, Response, redirect,jsonify
 from geopy.geocoders import Nominatim
 import folium
 import urllib.request
@@ -7,12 +7,12 @@ import phonenumbers
 from phonenumbers import carrier, geocoder, timezone
 from opencage.geocoder import OpenCageGeocode
 
-key = 'd4cddfbe4d9348a2a5d92dcc30966e0e'
+key = '900995c5d7064ae1a9c47af99bce0da1'
 
 
 app = Flask(__name__)
 
-path = os.getcwd() + "/output/"
+path = os.getcwd() #+ "/output/"
 
 @app.route('/')
 def index():
@@ -37,11 +37,14 @@ def geo_html():
 		geolocator=Nominatim(user_agent="GetLoc")
 		location=geolocator.geocode(url)
 		print(location.address)
-
+		print(path)
 		print((location.latitude,location.longitude))
-		m=folium.Map(Location=[location.latitude, location.longitude])
-		m.save(path+'../output/location.html')
-		with open(path+ '../output/location.html',"r") as f:
+
+		m=folium.Map(Location=[location.latitude, location.longitude], zoom_start=15)
+		folium.Marker([location.latitude, location.longitude], popup=location.address).add_to(m)
+
+		m.save(path+'\output\location.html')
+		with open(path+ '\output\location.html',"r") as f:
 			content=f.read()
 			return Response(content,mimetype='text/html')
 		
