@@ -19,6 +19,17 @@
                     </button>
                 </div>
             </form>
+            <form class="btn_download" action="{{ url_for('descargar.generar_pdf') }}" method="POST">
+                <button type="submit" class="button is-link is-small" data-toggle="tooltip"
+                    title="Descargar pdf">
+                    <input type="hidden" name="id_pdf"
+                        value="FISI">
+                    <span class="material-icons">
+                        download
+                    </span>
+                </button>
+            </form>
+            
         </div>
     </div>
 </body>

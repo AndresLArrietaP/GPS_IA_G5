@@ -66,6 +66,10 @@ h1 {
     /*margin-left: 10px; */
 }
 
+.btn_download {
+    display: inline-block;
+  }
+  
 .search-txt {
     border: none;
     background: none;

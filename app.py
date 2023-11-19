@@ -6,11 +6,15 @@ import os, json
 import phonenumbers
 from phonenumbers import carrier, geocoder, timezone
 from opencage.geocoder import OpenCageGeocode
+from index import crear_app
 
+
+from bd import creartabla , insertar,seleccionar
 key = '900995c5d7064ae1a9c47af99bce0da1'
 
-
-app = Flask(__name__)
+data = []
+app = crear_app()
+#app.register_blueprint(bp)
 
 path = os.getcwd() #+ "/output/"
 
@@ -39,7 +43,8 @@ def geo_html():
 		print(location.address)
 		print(path)
 		print((location.latitude,location.longitude))
-
+		data = [(location.address,location.latitude,location.longitude)]
+		insertar(data)
 		m=folium.Map(Location=[location.latitude, location.longitude], zoom_start=15)
 		folium.Marker([location.latitude, location.longitude], popup=location.address).add_to(m)
 
@@ -47,6 +52,10 @@ def geo_html():
 		with open(path+ '\output\location.html',"r") as f:
 			content=f.read()
 			return Response(content,mimetype='text/html')
+		
+def apdf():
+	data=seleccionar()
+	return data
 		
 @app.route('/envia2',methods=['GET','POST'])
 def ip_html():
@@ -83,5 +92,6 @@ def id_html():
 		return render_template('out_2.html',temp=result_1)
 
 
+#   METODO MAIN
 if __name__ == '__main__':
-		app.run(host='localhost')	
+    app.run(host='localhost')
