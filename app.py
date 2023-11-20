@@ -9,7 +9,7 @@ from opencage.geocoder import OpenCageGeocode
 from index import crear_app
 
 
-from bd import creartabla , insertar,seleccionar
+from bd import creartabla , insertar,seleccionar,eliminarviejo
 key = '900995c5d7064ae1a9c47af99bce0da1'
 
 data = []
@@ -94,4 +94,6 @@ def id_html():
 
 #   METODO MAIN
 if __name__ == '__main__':
-    app.run(host='localhost')
+	#creartabla()
+	eliminarviejo()
+	app.run(host='localhost')

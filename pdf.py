@@ -24,6 +24,7 @@ def generar_pdf():
     pdf.setTitle(titulo)
 
     data = seleccionar()
+    print(data)
     dibujar_encabezado(pdf,50,600)
     dibujar_body(pdf,data,0,510)
     dibujar_footer(pdf,50,50)
@@ -71,68 +72,6 @@ def generar_titulo(pdf,xtitulo,ytitulo):
     #fecha -> 400, 725
     pdf.drawString(xtitulo+250, ytitulo-15, f"Fecha emision: {fecha_actual.date()}")
 
-"""def generar_infoSolicitante(pdf,data,posix,posiy):
-    # Obtener datos del solicitante
-    nombre = data["solicitud"]["solicitante"]["persona"]["nombre_completo"]
-    nro_documento = data["solicitud"]["solicitante"]["persona"]["ndocumento"]
-    rol = data["solicitud"]["solicitante"]["rol"]["descripcion"]
-    correo = data["solicitud"]["solicitante"]["correo"]
-    telefono = data["solicitud"]["solicitante"]["telefono"]
-    
-    # Obtener datos de su predio
-    predio = data["solicitud"]["predio"]["descripcion"]
-    ruc = data["solicitud"]["predio"]["ruc"]
-    tipo_predio = data["solicitud"]["predio"]["tipo_predio"]["nomre_predio"]
-
-    # Combinacion
-    nombreRol = nombre + "   -   "+rol
-    if '\n' in nombreRol: nombreRol = nombreRol.replace('\n','') #me dieron data con saltos de linea (no pertenece a mi CUS)
-
-    pdf.setFont("Helvetica-BoldOblique", 12)
-    pdf.drawString(posix, posiy+15, "Solicitante")
-    pdf.setFont("Helvetica", 11)
-    pdf.drawString(posix, posiy, "Nombre:")
-    pdf.drawString(posix, posiy-20, "Nro documento:")
-    pdf.drawString(posix, posiy-40, "Predio:")
-    pdf.drawString(posix, posiy-60, "Tipo predio:")
-    pdf.drawString(posix+200, posiy-20, "Correo:")
-    pdf.drawString(posix+200, posiy-40, "Telefono:")
-    pdf.drawString(posix+200, posiy-60, "R.U.C.:")
-    
-    pdf.drawString(posix+90, posiy, nombreRol)
-    pdf.drawString(posix+90, posiy-20, nro_documento) 
-    pdf.drawString(posix+90, posiy-40, predio)
-    pdf.drawString(posix+90, posiy-60, tipo_predio)
-    pdf.drawString(posix+270, posiy-20, correo)
-    pdf.drawString(posix+270, posiy-40, str(telefono))
-    pdf.drawString(posix+270, posiy-60, ruc)
-
-def generar_infoServicios(pdf,data,posix,posiy):
-    tipo_servicio = data["solicitud"]["servicio"]["descripcion"]
-    cant_administradores = defaultCantidad(data["solicitud"]["cant_administracion"])
-    cant_plimpieza = defaultCantidad(data["solicitud"]["cant_plimpieza"])
-    cant_jardineros = defaultCantidad(data["solicitud"]["cant_jardineria"])
-    cant_vigilantes = defaultCantidad(data["solicitud"]["cant_vigilantes"])
-
-    pdf.setFont("Helvetica-BoldOblique", 12)
-    pdf.drawString(posix, posiy+15, "Servicios")
-    pdf.setFont("Helvetica", 11)
-    pdf.drawString(posix, posiy, "Tipo de servicio:")
-    pdf.drawString(posix+90, posiy, tipo_servicio)
-    
-    pdf.drawString(posix, posiy-20, "Cantidad de administradores:")
-    pdf.drawString(posix+150, posiy-20, str(cant_administradores))
-
-    pdf.drawString(posix+200, posiy-20, "Cantidad de plimpieza:")
-    pdf.drawString(posix+350, posiy-20, str(cant_plimpieza))
-
-    pdf.drawString(posix, posiy-40, "Cantidad de jardineros:")
-    pdf.drawString(posix+150, posiy-40, str(cant_jardineros))
-
-    pdf.drawString(posix+200, posiy-40, "Cantidad de vigilantes:")
-    pdf.drawString(posix+350, posiy-40, str(cant_vigilantes))"""
-
-
 #generar tabla del body
 def generar_tabla(pdf,data,posix,posiy):
     ids = [tupla[0] for tupla in data]
@@ -142,12 +81,12 @@ def generar_tabla(pdf,data,posix,posiy):
 
     # Construye la estructura de datos para la tabla
     table_data = [
-        ['ID','UBICACIÓN','LATITUD','LONGITUD'],  # Nombres de las columnas
+        ['ID','UBICACIÓN','LATITUD','LONGITUD','HORA'],  # Nombres de las columnas
     ]
 
     for tupla in data:
-        id,ubi,lat,long = tupla
-        table_data.append([id,ubi,lat,long])
+        id,ubi,lat,long,hora = tupla
+        table_data.append([id,ubi,lat,long,hora])
 
     color_azul = ((4/255, 26/255, 47/255))
     color_azulclaro = ((215/255, 235/255, 255/255))
@@ -175,7 +114,7 @@ def generar_tabla(pdf,data,posix,posiy):
     table.wrapOn(pdf, 400, 500)
     pdf.setFont("Helvetica-BoldOblique", 12)
     pdf.drawString(posix+100, posiy+5, "LISTA ASISTENCIAS")
-    table.drawOn(pdf, posix+100, posiy-table._height-5)
+    table.drawOn(pdf, posix+50, posiy-table._height-5)
 
 # FOOTER
 def dibujar_footer(pdf,x_footer,y_footer):

@@ -13,7 +13,8 @@ def creartabla():
                 ID INTEGER PRIMARY KEY autoincrement,
                 UBICACION VARCHAR(50),
                 LATITUD FLOAT,
-                LONGITUD FLOAT           
+                LONGITUD FLOAT,
+                FECHA_HORA TIMESTAMP DEFAULT CURRENT_TIMESTAMP          
         )
     """)
 
@@ -35,6 +36,22 @@ def seleccionar():
 
     cursor = con.cursor()
 
-    cursor.execute("SELECT * FROM ASISTENCIAS")
+    cursor.execute("""SELECT 
+                   ID, UBICACION, LATITUD, LONGITUD, strftime('%H:%M:%S', FECHA_HORA) AS HORA 
+                   FROM ASISTENCIAS;""")
 
     return cursor.fetchall()
+
+def eliminarviejo():
+    con = conexion.connect('Data.sql')
+
+    cursor = con.cursor()
+
+    cursor.execute("""
+        DELETE FROM ASISTENCIAS
+        WHERE CAST(FECHA_HORA AS DATE) <> CAST(CURRENT_TIMESTAMP AS DATE)
+
+    """)
+
+    con.commit()
+    con.close()
